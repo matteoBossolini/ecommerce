@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prodotti{% endblock %}
+
+{% block body %}
+
+<head>
+<link href="{{ asset('/css/home_page.css')}}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+        <h4 class="my-0 mr-md-auto font-weight-bold">CaliMania</h4>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark attivo" href="#">Prodotti</a>
+            <a class="p-2 text-dark" href="{{ path('app_carrello') }}">Carrello</a>
+            <a class="p-2 text-dark" href="{{ path('app_login') }}">Area Utente</a>
+        </nav>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="center container">
+            <h1 class="display-2">Benvenuto su CaliMania</h1>
+            <h4>Il primo progetto scolastico sul calisthenics, Scopri ora i nostri prodotti!</h4>
+        </div>
+    </div>
+
+    <div class="tag container">
+        <select class="form-select form-select-sm" aria-label=".form-select-sm example" onChange="generaProdotti()" id="filtri">
+            <option value="none" selected>Filtri</option>
+            {% for tag in tags %}
+                <option value="{{tag.idtag}}">{{tag.nome}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="container prodotti" id="grigliaProdotti">
+
+        {% set i = 0 %}
+        {% for prodotto in prodotti %}
+
+            {% if i == 0 %} 
+                <div class="row">
+            {% elseif i == 3 %}
+                {% set i = 0 %}
+                </div>
+                <div class="row">
+            {% endif %}
+
+            <div class="col-md">
+                <div class="card">
+                    <img class="card-img-top" src="{{ asset('/img/'~prodotto.immagine)}}" alt="Card image cap">
+                    <div class="card-body">
+                    <hr>
+                        <h5 class="card-title">{{prodotto.nome}}</h5>
+                        {{prodotto.prezzo}}€
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_ecommerce_prodotto', {sku: prodotto.sku}) }}" class="btn btn-dark stretched-link">Vedi prodotto</a>
+                    </div>
+                </div>
+            </div>
+
+            {% set i = i+1 %}
+        {% endfor %}
+            </div><!--Div Row-->
+    </div>
+
+    <script>
+
+        function generaProdotti() {
+
+            var filtro = document.getElementById("filtri").value;
+
+            var griglia = document.getElementById("grigliaProdotti");
+            griglia.innerHTML = "";
+            var i = 0;
+            var riga = "";
+
+            {% for prodotto in prodotti %}
+
+                var tag = {{prodotto.idTag.idTag}};
+
+                if (tag == filtro || filtro == "none") {
+
+                    if (i == 0) {
+                        riga += '<div class="row">';
+                    } else if (i == 3) {
+                        i = 0;
+                        riga += '</div><div class="row">';
+                    }
+
+                    var immagine = "{{ asset('/img/'~prodotto.immagine)}}";
+                    var link = "{{ path('app_ecommerce_prodotto', {sku: prodotto.sku}) }}";
+
+                    riga += '<div class="col-md">';
+                    riga += '<div class="card">';
+                    riga += '<img class="card-img-top" src="' + immagine + '" alt="Card image cap">';
+                    riga += '<div class="card-body">';
+                    riga += '<hr><h5 class="card-title">{{prodotto.nome}}</h5>{{prodotto.prezzo}}€</div>';
+                    riga += '<div class="card-footer"><a href="' + link + '" class="btn btn-dark stretched-link">Vedi prodotto</a></div></div></div>';
+
+                    i += 1;
+
+                }
+            {% endfor %}
+            riga += '</div>';
+            grigliaProdotti.innerHTML = riga;
+        }
+
+    </script>
+
+</body>
+{% endblock %}

@@ -1,0 +1,12 @@
+body {
+    font-family: Helvetica;
+}
+
+.attivo {
+    border-bottom: 3px solid black;
+}
+
+nav a:hover {
+    text-decoration: none;
+    border-bottom: 3px solid gray;
+}

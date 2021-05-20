@@ -1,0 +1,43 @@
+body {
+    font-family: Helvetica;
+}
+
+.prodotti {
+    margin-top: 20px;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.jumbotron {
+    background-image: url("../img/heria.jpg");
+    height: 700px;
+    margin-top: -20px;
+}
+
+.attivo {
+    border-bottom: 3px solid black;
+}
+
+a:hover {
+    text-decoration: none;
+    border-bottom: 3px solid gray;
+}
+
+.center {
+    margin-top: 200px;
+    color: white;
+}
+
+.tag {
+    border-top: 1px solid #a3a3a3;
+    border-bottom: 1px solid #a3a3a3;
+    padding: 5px;
+}
+
+select {
+    border: none;
+    color: #a3a3a3;
+    padding: 5px;
+}

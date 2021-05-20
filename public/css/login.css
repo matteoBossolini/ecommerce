@@ -1,0 +1,45 @@
+body {
+    font-family: Helvetica;
+}
+
+.attivo {
+    border-bottom: 3px solid black;
+}
+
+nav a:hover {
+    text-decoration: none;
+    border-bottom: 3px solid gray;
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    margin-top:20px;
+}
+
+button {
+    margin-bottom: 10px;
+}
+
+.link {
+    color: black;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.link span {
+    color: #037BFE;
+}
+
+.link span:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 60%;
+}

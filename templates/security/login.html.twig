@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<head>
+<link href="{{ asset('/css/login.css')}}" rel="stylesheet" type="text/css">
+</head>
+</body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+        <h4 class="my-0 mr-md-auto font-weight-bold">CaliMania</h4>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{{ path('home_page') }}">Prodotti</a>
+            <a class="p-2 text-dark" href="{{ path('app_carrello') }}">Carrello</a>
+            <a class="p-2 text-dark attivo" href="{{ path('app_login') }}">Area Utente</a>
+        </nav>
+    </div>
+<div class="container">
+
+<h2><strong>Login</strong></h2>
+
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Ricordami
+            </label>
+        </div>
+
+    <button class="btn btn-lg btn-dark" type="submit">
+        Login
+    </button>
+</form>
+
+    <a class="link" href="{{ path('app_register') }}">Non sei ancora Registrato? <span>Clicca qui</span></a>
+
+</div>
+</body>
+{% endblock %}

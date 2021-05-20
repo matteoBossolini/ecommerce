@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ prodotto.nome }} {% endblock %}
+
+{% block body %}
+
+<head>
+<link href="{{ asset('/css/prodotto.css')}}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+        <h4 class="my-0 mr-md-auto font-weight-bold">CaliMania</h4>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{{path('home_page')}}">Prodotti</a>
+            <a class="p-2 text-dark" href="{{path('app_carrello')}}">Carrello</a>
+            <a class="p-2 text-dark" href="{{path('app_login')}}">Area Utente</a>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="{{ asset('/img/'~prodotto.immagine)}}">
+            </div>
+            <div class="col testo">
+                <h1>{{ prodotto.nome }}</h1>
+                <h3>{{ prodotto.prezzo }}€</h3>
+                {% if prodotto.quantita <= 3 %}
+                    <small style="color: red">Solo {{ prodotto.quantita}} pezzi rimasti</small>
+                {% endif %}
+                <hr>
+                <a class="btn btn-dark" href="">Aggiungi al carrello</a><a class="btn btn-success">Acquista Ora</a>
+                <p>{{ prodotto.descrizione }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
