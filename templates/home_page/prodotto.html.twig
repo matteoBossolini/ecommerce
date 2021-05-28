@@ -30,7 +30,7 @@
                     <small style="color: red">Solo {{ prodotto.quantita}} pezzi rimasti</small>
                 {% endif %}
                 <hr>
-                <a class="btn btn-dark" href="">Aggiungi al carrello</a><a class="btn btn-success">Acquista Ora</a>
+                <a class="btn btn-dark" href="{{ path('app_aggiungi_carrello', {sku: prodotto.sku}) }}">Aggiungi al carrello</a><a class="btn btn-success">Acquista Ora</a>
                 <p>{{ prodotto.descrizione }}</p>
             </div>
         </div>

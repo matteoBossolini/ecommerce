@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Carrello;
 use App\Entity\Prodotto;
 use App\Entity\User;
+use App\Repository\CarrelloRepository;
 use App\Repository\ProdottoRepository;
 use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,11 +46,17 @@ class HomePageController extends AbstractController
     /**
      * @Route("/carrello/new/{sku}", name="app_aggiungi_carrello")
      */
-    public function caricaProdottoNelCarrello(Prodotto $prodotto) {
+    public function caricaProdottoNelCarrello(Prodotto $prodotto, CarrelloRepository $carrelloRepository) {
         
         $user = $this->getUser();
 
-        
+        $carrello = $carrelloRepository->findOneBy([
+            'idUtente' => $user
+        ]);
 
+        $carrello->addSku($prodotto);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute("app_carrello");
     }
 }

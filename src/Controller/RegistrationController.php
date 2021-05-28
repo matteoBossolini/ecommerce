@@ -38,11 +38,11 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            $utente = $this->getUser();
-
             $carrello = new Carrello();
-            $carrello->setIdUtente($utente);
-            
+            $carrello->setIdUtente($user);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($carrello);
+            $entityManager->flush();
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,

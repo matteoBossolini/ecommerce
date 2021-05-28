@@ -1,0 +1,32 @@
+body {
+    font-family: Helvetica;
+}
+
+.attivo {
+    border-bottom: 3px solid black;
+}
+
+nav a:hover {
+    text-decoration: none;
+    border-bottom: 3px solid gray;
+}
+
+.nome-prodotto {
+    margin-right: 20px;
+    font-size: large;
+}
+
+body {
+    background-color: #ebebeb;
+}
+
+.table {
+    border-color: black;
+}
+
+.prodotto {
+    border-left: 0.15em solid #d4d4d4;
+}
+.prodotto:hover {
+    border-left: 0.15em solid #bbbbbb;
+}
