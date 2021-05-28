@@ -5,7 +5,13 @@
 {% block body %}
 
 <head>
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Link Css -->
 <link href="{{ asset('/css/prodotto.css')}}" rel="stylesheet" type="text/css">
+<style>
+</style>
 </head>
 <body>
 
@@ -21,17 +27,42 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <img src="{{ asset('/img/'~prodotto.immagine)}}">
+                <img src="{{ asset('/img/'~prodotto.immagine)}}" class="img-fluid">
             </div>
             <div class="col testo">
                 <h1>{{ prodotto.nome }}</h1>
                 <h3>{{ prodotto.prezzo }}€</h3>
-                {% if prodotto.quantita <= 3 %}
+                {% if prodotto.quantita > 0 and prodotto.quantita <= 3 %}
                     <small style="color: red">Solo {{ prodotto.quantita}} pezzi rimasti</small>
                 {% endif %}
                 <hr>
-                <a class="btn btn-dark" href="{{ path('app_aggiungi_carrello', {sku: prodotto.sku}) }}">Aggiungi al carrello</a><a class="btn btn-success">Acquista Ora</a>
-                <p>{{ prodotto.descrizione }}</p>
+                {% if prodotto.quantita == 0 %}
+                    <button type="button" class="btn btn-dark" disabled>Esaurito</button>
+                {% else %}
+                    <a class="btn btn-dark" href="{{ path('app_aggiungi_carrello', {sku: prodotto.sku}) }}">Aggiungi al carrello</a>
+                    <a class="btn btn-success" href="{{ path('checkout_prodotto', {sku: prodotto.sku}) }}">Acquista Ora</a>
+                {% endif %}
+                <p class="descrizione">{{ prodotto.descrizione }}</p>
+                <div id="overflowTest" style="width: 100%; height: 300px">
+                    {% for recensione in recensioni %}
+                        <p class="titolo_recensione">
+                        <strong>{{ recensione.titolo }}</strong>
+
+                        {% for i in 1..recensione.voto %}
+                            <span class="fa fa-star checked"></span>
+                        {% endfor %}
+
+                        {% set rimanenze = 5 - recensione.voto %}
+                        {% if rimanenze > 0 %}
+                            {% for j in 1..rimanenze %}
+                                <span class="fa fa-star"></span>
+                            {% endfor %}
+                        {% endif %}
+                        </p>
+                        <p class="utente">{{recensione.idUtente.username}}</p>
+                        <p class="corpo_recensione">{{ recensione.descrizione }}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

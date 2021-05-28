@@ -18,7 +18,26 @@
 
     <div class="container">
         <h2>Ciao {{utente.username}}</h2>
-        {#mostrare elenco ordini#}
+        {% if ordini|length > 0 %}
+        <div id="overflowTest" style="width: 100%; height: 300px">
+            <ol>
+                {% for ordine in ordini %}
+                    <li>
+                    <p>id ordine: #{{ ordine.idOrdine }}</p>
+                    <p>Indirizzo di spedizione: {{ ordine.citta }} ({{ ordine.cap }}) - {{ ordine.indirizzo }} </p>
+                    {% set prezzoOrdine = 0 %}
+                    {% for prodotto in ordine.sku %} 
+                        {% set prezzoOrdine = prezzoOrdine + prodotto.prezzo %}
+                    {% endfor %}
+                    <p>Euro: {{ prezzoOrdine }}€</p>
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ol>
+        </div>
+        {% else %}
+        <p style="text-align: center">Non hai ancora effetuato ordini :(</p>
+        {% endif %}
         <a href="{{ path('app_logout') }}">Logout</a>
     </div>
 

@@ -7,6 +7,7 @@ use App\Entity\Prodotto;
 use App\Entity\User;
 use App\Repository\CarrelloRepository;
 use App\Repository\ProdottoRepository;
+use App\Repository\RecensioneRepository;
 use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,9 +38,11 @@ class HomePageController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function mostraProdotto(Prodotto $prodotto) {
+    public function mostraProdotto(Prodotto $prodotto, RecensioneRepository $recensioneRepository) {
+        $recensioni = $recensioneRepository->findBy(['sku' => $prodotto]);
         return $this->render("home_page/prodotto.html.twig", [
-            "prodotto" => $prodotto
+            "prodotto" => $prodotto,
+            "recensioni" => $recensioni
         ]);
     }
     
@@ -48,15 +51,19 @@ class HomePageController extends AbstractController
      */
     public function caricaProdottoNelCarrello(Prodotto $prodotto, CarrelloRepository $carrelloRepository) {
         
-        $user = $this->getUser();
+        if ($this->getUser()) {
+            $user = $this->getUser();
 
-        $carrello = $carrelloRepository->findOneBy([
-            'idUtente' => $user
-        ]);
+            $carrello = $carrelloRepository->findOneBy([
+                'idUtente' => $user
+            ]);
 
-        $carrello->addSku($prodotto);
-        $this->getDoctrine()->getManager()->flush();
+            $carrello->addSku($prodotto);
+            $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirectToRoute("app_carrello");
+            return $this->redirectToRoute("app_carrello");
+        } else {
+            return $this->redirectToRoute("app_login");
+        }
     }
 }

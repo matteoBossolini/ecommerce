@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+	<head>
+		<link href="{{ asset('/css/checkout.css')}}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="row vh-100">
+			<div class="col-8 info">
+				<div class="container info-container">
+					<h2><strong>Completa Acquisto</strong></h2>
+                    <p>Inserisci i tuoi dati per ricevere la spedizione</p>
+                    
+                    <div class="container-form">
+                        {{ form_start(shippingForm) }}
+                            <div class="row">
+                                <div class="col-5">{{ form_row(shippingForm.nome) }}</div>
+                                <div class="col-5">{{ form_row(shippingForm.cognome) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">{{ form_row(shippingForm.indirizzo) }}</div>
+                                <div class="col-5">{{ form_row(shippingForm.citta) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">{{ form_row(shippingForm.cap) }}</div>
+                                <div class="col-4">{{ form_row(shippingForm.nazione) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="ccn">Carta di credito:</label>
+                                    <input class="form-control" id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                                </div>
+                                <div class="col-6">
+                                    <label for="titolare">Titolare della carta:</label>
+                                    <input id="titolare" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+                                <div class="col-3">
+                                    <label for="cvv">CVV:</label>
+                                    <input class="form-control" id="cvv" type="num" inputmode="numeric" maxlength="3" placeholder="xxx">
+                                </div>
+                                <div class="col-4">
+                                    <label for="titolare">Data di scadenza:</label>
+                                    <input id="titolare" class="form-control" type="month">
+                                </div>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-auto"><a class="btn btn-link" href="{{ path('home_page') }}">Torna alla Home</a></div>
+                                <div class="col-auto"><button type="submit" class="btn btn-dark" style="margin-top: 0px; margin-right: 170px;">Compra ora</button></div>
+                            </div>
+                        {{ form_end(shippingForm) }}
+                    </div>
+				</div>
+			</div>
+			<div class="col-4 prodotti">
+                <div class="container">
+                    <p class="subtitle">Prodotti</p>
+                    {% for prodotto in prodotti %}
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <img src="{{ asset('/img/'~prodotto.immagine)}}">
+                        </div>
+                        <div class="col-sm-auto">
+                            <strong>{{ prodotto.nome }}</strong> - {{ prodotto.prezzo }}€</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+			</div>
+		</div>
+	</body>
+{% endblock %}

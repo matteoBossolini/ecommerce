@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Prodotto;
 use App\Repository\CarrelloRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,5 +31,23 @@ class CarrelloController extends AbstractController
         } else {
             return $this->redirectToRoute('app_login');
         }
+    }
+
+    /**
+     * @Route("/carrello/rimuovi/{sku}", name="app_carrello_rimuovi")
+     */
+    public function rimuoviProdotto(Prodotto $prodotto ,CarrelloRepository $carrelloRepository){
+
+        $user = $this->getUser();
+
+        $carrello = $carrelloRepository->findOneBy([
+            'idUtente' => $user
+        ]);
+
+        $carrello->removeSku($prodotto);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute("app_carrello");
+
     }
 }

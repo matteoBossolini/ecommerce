@@ -26,9 +26,23 @@ class Ordine
     /**
      * @var string
      *
+     * @ORM\Column(name="nome", type="string", length=128, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cognome", type="string", length=128, nullable=false)
+     */
+    private $cognome;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="indirizzo", type="string", length=128, nullable=false)
      */
-    private $indirizzo;
+    private $indirizzo;    
 
     /**
      * @var string
@@ -133,6 +147,30 @@ class Ordine
     public function setCitta(string $citta): self
     {
         $this->citta = $citta;
+
+        return $this;
+    }
+
+    public function getNome(): ?string
+    {
+        return $this->nome;
+    }
+
+    public function setnome(string $nome): self
+    {
+        $this->nome = $nome;
+
+        return $this;
+    }
+
+    public function getCognome(): ?string
+    {
+        return $this->cognome;
+    }
+
+    public function setCognome(string $cognome): self
+    {
+        $this->cognome = $cognome;
 
         return $this;
     }

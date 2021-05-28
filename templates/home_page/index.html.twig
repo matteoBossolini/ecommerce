@@ -37,34 +37,24 @@
 
     <div class="container prodotti" id="grigliaProdotti">
 
-        {% set i = 0 %}
-        {% for prodotto in prodotti %}
+        <div class="row row-cols-3">
+            {% for prodotto in prodotti %}
 
-            {% if i == 0 %} 
-                <div class="row">
-            {% elseif i == 3 %}
-                {% set i = 0 %}
-                </div>
-                <div class="row">
-            {% endif %}
-
-            <div class="col-md">
-                <div class="card">
-                    <img class="card-img-top" src="{{ asset('/img/'~prodotto.immagine)}}" alt="Card image cap">
-                    <div class="card-body">
-                    <hr>
-                        <h5 class="card-title">{{prodotto.nome}}</h5>
-                        {{prodotto.prezzo}}€
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ path('app_ecommerce_prodotto', {sku: prodotto.sku}) }}" class="btn btn-dark stretched-link">Vedi prodotto</a>
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset('/img/'~prodotto.immagine)}}" alt="Card image cap">
+                        <div class="card-body">
+                        <hr>
+                            <h5 class="card-title">{{prodotto.nome}}</h5>
+                            {{prodotto.prezzo}}€
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ path('app_ecommerce_prodotto', {sku: prodotto.sku}) }}" class="btn btn-dark stretched-link">Vedi prodotto</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            {% set i = i+1 %}
-        {% endfor %}
-            </div><!--Div Row-->
+            {% endfor %}
+        </div>
     </div>
 
     <script>
@@ -75,8 +65,7 @@
 
             var griglia = document.getElementById("grigliaProdotti");
             griglia.innerHTML = "";
-            var i = 0;
-            var riga = "";
+            var riga = '<div class="row row-cols-3">';
 
             {% for prodotto in prodotti %}
 
@@ -84,24 +73,15 @@
 
                 if (tag == filtro || filtro == "none") {
 
-                    if (i == 0) {
-                        riga += '<div class="row">';
-                    } else if (i == 3) {
-                        i = 0;
-                        riga += '</div><div class="row">';
-                    }
-
                     var immagine = "{{ asset('/img/'~prodotto.immagine)}}";
                     var link = "{{ path('app_ecommerce_prodotto', {sku: prodotto.sku}) }}";
 
-                    riga += '<div class="col-md">';
+                    riga += '<div class="col">';
                     riga += '<div class="card">';
                     riga += '<img class="card-img-top" src="' + immagine + '" alt="Card image cap">';
                     riga += '<div class="card-body">';
                     riga += '<hr><h5 class="card-title">{{prodotto.nome}}</h5>{{prodotto.prezzo}}€</div>';
                     riga += '<div class="card-footer"><a href="' + link + '" class="btn btn-dark stretched-link">Vedi prodotto</a></div></div></div>';
-
-                    i += 1;
 
                 }
             {% endfor %}

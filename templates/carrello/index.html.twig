@@ -28,7 +28,7 @@
             {% for prodotto in prodotti %}
                 <tr class="prodotto">
                     <td><span class="nome-prodotto">{{ prodotto.nome }}</span><span class="prezzo-prodotto">{{ prodotto.prezzo }}€</span><br>
-                    <small><a href="#">Rimuovi</a></small></td>
+                    <small><a href="{{ path('app_carrello_rimuovi', {sku: prodotto.sku}) }}">Rimuovi</a></small></td>
                 </tr>
                 {% set totale = totale + prodotto.prezzo %}
             {% endfor %}
@@ -39,7 +39,7 @@
             <h3>Totale {{ totale }}€</h3>
             </div>
             <div class="col-auto">
-            <a class="btn btn-success">Completa acquisto</a>
+            <a class="btn btn-success" href="{{ path('checkout_carrello') }}">Completa acquisto</a>
             </div>
         </div>
     {% else %}

@@ -3,13 +3,24 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-
+<head>
+<link href="{{ asset('/css/register.css')}}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm sticky-top">
+    <h4 class="my-0 mr-md-auto font-weight-bold">CaliMania</h4>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="{{ path('home_page') }}">Prodotti</a>
+        <a class="p-2 text-dark" href="{{ path('app_carrello') }}">Carrello</a>
+        <a class="p-2 text-dark attivo" href="{{ path('app_login') }}">Area Utente</a>
+    </nav>
+</div>
     <div class="container">
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h2><strong>Registrati</strong></h2>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
@@ -17,9 +28,9 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-dark">Registrati</button>
     {{ form_end(registrationForm) }}
     </div>
+</body>
 {% endblock %}

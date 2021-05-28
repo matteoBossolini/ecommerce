@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thank You!{% endblock %}
+
+{% block body %}
+	<head>
+		<link href="{{ asset('/css/checkout.css')}}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	<div class="container">
+		<h2><strong>Grazie per il tuo acquisto!</strong></h2>
+        <p class="subtitle">Il tuo numero d'ordine è #{{ ordine.idOrdine }}</p>
+		<a class="btn btn-dark" href="{{ path('home_page') }}">Torna alla home</a>
+	</div>
+	</body>
+{% endblock %}
